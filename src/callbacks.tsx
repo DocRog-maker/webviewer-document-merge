@@ -1,0 +1,1 @@
+type ValueCallback = (value: string) => void;
