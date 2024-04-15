@@ -1,12 +1,11 @@
-import WebViewer, { WebViewerInstance } from '@pdftron/webviewer';
+import WebViewer from '@pdftron/webviewer';
 import { useEffect, useRef } from 'react';
 
 interface ViewerProps {
     docToLoad: string,
-    setCore: React.Dispatch<React.SetStateAction<WebViewerInstance["Core"]>>;
 }
 
-const Viewer = ({ docToLoad, setCore }: ViewerProps) => {
+const Viewer = ({ docToLoad }: ViewerProps) => {
     const viewer = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -23,7 +22,6 @@ const Viewer = ({ docToLoad, setCore }: ViewerProps) => {
             ]);
             instance.UI.enableElements(['documentControl']);
             instance.UI.openElements(['leftPanel']);
-            setCore(instance.Core);
         });
     }, []);
 

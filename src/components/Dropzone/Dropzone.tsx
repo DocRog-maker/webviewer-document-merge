@@ -1,25 +1,24 @@
-import { WebViewerInstance } from '@pdftron/webviewer';
 import { DragEvent, useEffect, useRef, useState } from 'react';
 import './styles.css';
 
-//CoreControls was replaced with Core in Apryse 8.0
-interface DropzoneProps {
-    core: WebViewerInstance["Core"]
-}
-const Dropzone = ({ core }: DropzoneProps) => {
+
+const Dropzone = () => {
     const dropRef = useRef(null);
     const fileListRef = useRef(null);
     const [docs, addDocument] = useState([]);
     const [thumbArray, addThumbToArray] = useState([]);
 
+     //CoreControls was replaced with Core in Apryse 8.0
+      // @ts-ignore
+    const core = window.Core ;
+    core.setWorkerPath('/lib/core');
     useEffect(() => {
         if (docs.length >= 1) {
             const loadDocumentAndThumb = async () => {
                 const doc = await core.createDocument(docs[docs.length - 1]);
 
                 //prior to  8.3 , the method loadThumbnailAsync was used.
-                // @ts-ignore
-                doc.loadThumbnail(1, thumbnail => {
+                doc.loadThumbnail(1, (thumbnail: any) => {
                     // @ts-ignore
                     addThumbToArray([...thumbArray, thumbnail]);
                 });
